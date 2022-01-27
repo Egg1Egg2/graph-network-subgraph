@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "prepublishOnly": "yarn & yarn build:ipfs",
-    "create:local": "graph create --node http://localhost:8020 graphprotocol/graph-network",
+    "create:local": "graph create --node http://127.0.0.1:8020 graphprotocol/graph-network",
     "build": "graph build",
     "build:ipfs:rinkeby": "yarn && yarn prep:ipfs && yarn prepare:rinkeby && graph build --ipfs https://ipfs.network.thegraph.com/",
     "build:ipfs:mainnet": "yarn && yarn prep:ipfs && yarn prepare:mainnet && graph build --ipfs https://ipfs.network.thegraph.com",
@@ -25,7 +25,7 @@
     "deploy-testnet": "yarn && yarn prep:ipfs && yarn prepare:rinkeby && graph deploy graphprotocol/graph-network-testnet --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
     "deploy-testnet-no-ipfs": "yarn && yarn prep:no-ipfs && yarn prepare:rinkeby && graph deploy graphprotocol/graph-network-testnet --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
     "deploy-testing": "yarn && yarn prep:<IPFS_OR_NO-IPFS> && yarn <INSERT_MAINNET_OR_RINKEBY> && graph deploy <INSERT_SUBGRAPH_NAME> --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
-    "deploy:hardhat": "yarn && yarn prep:no-ipfs && yarn prepare:hardhat && graph deploy graphprotocol/graph-network --ipfs http://127.0.0.1:5001 --node http://localhost:8020",
+    "deploy:hardhat": "yarn && yarn prep:no-ipfs && yarn prepare:hardhat && graph deploy graphprotocol/graph-network --ipfs http://127.0.0.1:5001 --node http://127.0.0.1:8020 --version-label $(jq .label versionMetadata.json)",
     "prep:addresses:rinkeby": "ts-node config/rinkebyAddressScript.ts && mustache ./config/generatedAddresses.json ./config/addresses.template.ts > ./config/addresses.ts",
     "prepare:rinkeby": "yarn prep:addresses:rinkeby && mustache ./config/generatedAddresses.json subgraph.template.yaml > subgraph.yaml && graph codegen --output-dir src/types/",
     "prep:addresses:mainnet": "ts-node config/mainnetAddressScript.ts && mustache ./config/generatedAddresses.json ./config/addresses.template.ts > ./config/addresses.ts",
@@ -41,7 +41,7 @@
     "test": "graph test -v 0.2.0"
   },
   "devDependencies": {
-    "@graphprotocol/contracts": "1.10.1",
+    "@graphprotocol/contracts": "file:.yalc/@graphprotocol/contracts",
     "@graphprotocol/graph-cli": "^0.25.1",
     "@graphprotocol/graph-ts": "^0.24.1",
     "@types/node": "^14.0.13",

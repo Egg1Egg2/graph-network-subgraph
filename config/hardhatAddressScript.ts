@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import * as mustache from 'mustache'
-import * as networkAddresses from '../../../contracts/addresses.json'
+import * as networkAddresses from '../../contracts/addresses.json'
 import { Addresses } from './addresses.template'
 
 // mustache doesn't like numbered object keys
@@ -21,7 +21,8 @@ export let addresses: Addresses = {
   ensPublicResolver: '{{hardhat.IPublicResolver}}',
   blockNumber: '',
   network: '',
-  tokenLockManager: ''
+  tokenLockManager: '',
+  subgraphNFT: '{{hardhat.SubgraphNFT.address}}',
 }
 
 const main = (): void => {
